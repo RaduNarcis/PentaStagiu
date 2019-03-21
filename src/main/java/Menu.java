@@ -18,18 +18,15 @@ public class Menu {
     public int readOption() {
         System.out.println("Option: ");
         return new Scanner(System.in).nextInt();
-
     }
 
     private void displayOptions() {
         System.out.println();
         System.out.println("1. Log in");
         System.out.println("2. Exit");
-
     }
 
     private void logIn() {
-
     }
 
     private void processOption(int option) {

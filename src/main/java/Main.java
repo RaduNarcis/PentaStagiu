@@ -5,7 +5,7 @@ public class Main {
         String filePath = "UserPass.txt";
 
         try{
-            User.readUsers(filePath);
+            ReadUser.readUsers(filePath);
         } catch (Exception e){
             e.printStackTrace();
         }

@@ -1,29 +1,36 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 
 public class User {
 
-    public static void readUsers(String filePath) {
+    String user;
+    String password;
 
-        try {
-            File f = new File(filePath);
-            FileReader fr = new FileReader(f);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
+    public User(String user, String password) {
+        this.user = user;
+        this.password = password;
+    }
 
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
+    public String getUser() {
+        return user;
+    }
 
-            }
+    public void setUser(String user) {
+        this.user = user;
+    }
 
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+    public String getPassword() {
+        return password;
+    }
 
-        } catch (Exception e2){
-            e2.printStackTrace();
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-        }
+    @Override
+    public String toString() {
+        return "User{" +
+                "user='" + user + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
