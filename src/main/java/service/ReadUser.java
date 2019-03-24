@@ -1,7 +1,6 @@
 package service;
 
 import view.GeneralView;
-import view.MyView;
 import view.UserLogInView;
 
 import java.io.BufferedReader;
@@ -12,14 +11,13 @@ import java.util.Scanner;
 
 public class ReadUser {
 
-    UserLogInView userLogInView = new UserLogInView();
-    GeneralView generalView = new GeneralView();
-
     public static void userLogIn() {
 
-        String filePath = "C:\\Users\\Dell\\PentaStagiu\\src\\main\\resources\\UserPass.txt";
+        //ReadFile readFile = ReadFile.getInstance();
+
         String userInput;
-        File file = new File(filePath);
+        File file = new File(ReadUser.class.getClassLoader().getResource("UserPass.txt").getFile());
+
 
         try (FileReader f = new FileReader(file);
              BufferedReader br = new BufferedReader(f)) {

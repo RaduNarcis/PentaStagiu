@@ -1,5 +1,7 @@
 package view;
+import constant.Constants;
 import service.ReadUser;
+
 
 import java.util.Scanner;
 
@@ -14,7 +16,7 @@ public class GeneralView implements MyView{
         System.out.println("1. Log in");
         System.out.println("2. Exit");
         option = readOption();
-        while (option != EXIT_OPTION) {
+        while (option != Constants.EXIT_OPTION) {
             processOption(option);
             displayOptions();
         }
