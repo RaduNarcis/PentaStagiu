@@ -1,16 +1,20 @@
 package view;
 
 import constant.Constants;
-import model.NewAccount;
+import model.Account;
+import reader.NewAccount;
 import service.AccountService;
+import view.displayer.AccountDisplayer;
 
+import java.util.List;
 import java.util.Scanner;
 
-public class AccountView implements MyView {
+public class AccountView implements DisplayView {
 
     int option = -1;
     AccountService accountService = new AccountService();
     NewAccount newAccount = new NewAccount();
+    AccountDisplayer accountDisplayer = new AccountDisplayer();
 
     @Override
     public void displayOptions() {
@@ -37,16 +41,17 @@ public class AccountView implements MyView {
     public void processOption(int option) {
         switch (option){
             case 1:
-                newAccount.createNewAccount();
+                accountService.addAccount(newAccount.createNewAccount());
                 return;
             case 2:
-
+                List<Account> accounts = accountService.listAllAcounts();
+                accountDisplayer.listAccounts(accounts);
                 return;
             case 0:
                 System.exit(0);
                 break;
             default:
-                break;
+                System.exit(0);
         }
     }
 }

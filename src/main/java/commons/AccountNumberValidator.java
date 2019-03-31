@@ -1,6 +1,6 @@
 package commons;
 
-public class Validator {
+public class AccountNumberValidator {
 
     public static boolean validateIBAN(String iban){
         if(iban != null && iban.length() == 24) {

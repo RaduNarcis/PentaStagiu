@@ -1,6 +1,6 @@
 package view;
 
-public interface MyView {
+public interface DisplayView {
 
     public void displayOptions();
 

@@ -5,7 +5,7 @@ import service.UserLoginService;
 
 import java.util.Scanner;
 
-public class GeneralView implements MyView {
+public class GeneralView implements DisplayView {
 
     int option = -1;
 
@@ -40,13 +40,14 @@ public class GeneralView implements MyView {
                 System.exit(0);
                 break;
             default:
-                break;
+                System.exit(0);
         }
     }
 
-    /*
-     * preluam datele de la utilizator si incercam sa facem login
-     * */
+    /**
+     * try to log in
+     * @return
+     */
     public boolean processLogin() {
         Scanner scanner = new Scanner(System.in);
 

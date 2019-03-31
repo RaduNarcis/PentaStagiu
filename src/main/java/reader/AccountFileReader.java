@@ -7,8 +7,10 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class AccountFileReader {
+    private final static Logger logger = Logger.getLogger(AccountFileReader.class.getName());
 
     private static String USER_ACCOUNT_SEPARATOR = "   ";
 
@@ -38,20 +40,18 @@ public class AccountFileReader {
                 split = line.split(USER_ACCOUNT_SEPARATOR);
 
                 if (split.length == 5) {
-                    BigDecimal bigDecimal = new BigDecimal(split[2]);
-                    String stringDecimal = bigDecimal.toString();
+                    BigDecimal stringDecimal = new BigDecimal(split[3]);
+                    double stringDouble = Double.parseDouble(split[4]);
+                    Long stringLong = Long.valueOf(split[1]);
 
-                    double myDouble2 = Double.parseDouble(split[3]);
-                    Account acc = new Account(split[0], split[1], stringDecimal, myDouble2, split[4]);
+                    Account acc = new Account(stringLong, split[1], split[2],stringDecimal, stringDouble, split[4]);
                     allAccounts.add(acc);
                 }
             }
         } catch (FileNotFoundException e1) {
-            // trebuie pus logger
-            e1.printStackTrace();
+            logger.info("Exception warning!");
         } catch (Exception e2) {
-            // trebuie pus logger
-            e2.printStackTrace();
+            logger.warning("Exception warning");
         }
         return allAccounts;
     }

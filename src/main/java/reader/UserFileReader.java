@@ -9,8 +9,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class UserFileReader {
+
+    private final static Logger logger = Logger.getLogger(UserFileReader.class.getName());
 
     private static String USER_CREDENTIALS_SEPARATOR = "   ";
 
@@ -27,10 +30,11 @@ public class UserFileReader {
         return instance;
     }
 
-    /*
-     *
-     * rolul metodei este sa citeasca userii si parolele din fisier
-     * */
+    /**
+     * read users and passwords
+     * @param path
+     * @return
+     */
     public List<UserCredentials> readUsersFromFile(String path) {
         List<UserCredentials> allUserCredentials = new LinkedList<>();
         File file = new File(UserLoginService.class.getClassLoader().getResource(path).getFile());
@@ -51,11 +55,9 @@ public class UserFileReader {
             }
 
         } catch (FileNotFoundException e1) {
-            // trebuie pus logger
-            e1.printStackTrace();
+            logger.info("Exception!");
         } catch (Exception e2) {
-            // trebuie pus logger
-            e2.printStackTrace();
+            logger.warning("Exception!");
         }
         return allUserCredentials;
     }

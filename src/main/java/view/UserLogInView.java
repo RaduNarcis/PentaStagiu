@@ -4,7 +4,7 @@ import constant.Constants;
 
 import java.util.Scanner;
 
-public class UserLogInView implements MyView {
+public class UserLogInView implements DisplayView {
 
     int option = -1;
     AccountView accountView = new AccountView();
@@ -45,7 +45,7 @@ public class UserLogInView implements MyView {
                 System.exit(0);
                 break;
             default:
-                break;
+                System.exit(0);
         }
     }
 }

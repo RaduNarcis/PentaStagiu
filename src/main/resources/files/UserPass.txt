@@ -1,5 +1,4 @@
-radu123   myPass1
-vasile4P   pass01
-ioana10   parola
-mircea74   mircea
-mihai2001   doi
+Radu   myPass1
+Victor   pass01
+Oana   parola
+Mihai   mircea
