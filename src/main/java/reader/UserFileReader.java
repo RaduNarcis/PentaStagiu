@@ -14,9 +14,7 @@ import java.util.logging.Logger;
 public class UserFileReader {
 
     private final static Logger logger = Logger.getLogger(UserFileReader.class.getName());
-
     private static String USER_CREDENTIALS_SEPARATOR = "   ";
-
     private static UserFileReader instance = null;
 
     private UserFileReader() {

@@ -12,8 +12,11 @@ import java.util.Scanner;
 public class AccountView implements DisplayView {
 
     int option = -1;
+
     AccountService accountService = new AccountService();
+
     NewAccount newAccount = new NewAccount();
+
     AccountDisplayer accountDisplayer = new AccountDisplayer();
 
     @Override

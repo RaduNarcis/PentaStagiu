@@ -17,6 +17,7 @@ public class AccountFileReader {
     private static AccountFileReader instance = null;
 
     private AccountFileReader() {
+
     }
 
     public static AccountFileReader getInstance() {

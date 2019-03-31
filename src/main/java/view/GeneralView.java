@@ -45,6 +45,7 @@ public class GeneralView implements DisplayView {
     }
 
     /**
+     *
      * try to log in
      * @return
      */

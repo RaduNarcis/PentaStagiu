@@ -22,6 +22,7 @@ public class UserLogInView implements DisplayView {
             processOption(option);
             displayOptions();
         }
+
     }
 
     @Override

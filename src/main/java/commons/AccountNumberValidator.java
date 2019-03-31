@@ -6,6 +6,7 @@ public class AccountNumberValidator {
         if(iban != null && iban.length() == 24) {
             return true;
         }
+
         return false;
     }
 }

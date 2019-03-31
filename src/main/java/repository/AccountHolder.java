@@ -37,6 +37,7 @@ public class AccountHolder {
                 max = account.getId();
             }
         }
+
         return max + 1;
     }
 }

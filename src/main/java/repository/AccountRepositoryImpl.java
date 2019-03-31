@@ -14,7 +14,9 @@ import java.util.logging.Logger;
 public class AccountRepositoryImpl {
 
     private AccountHolder holder = new AccountHolder();
+
     private AccountFileReader accountFileReader = AccountFileReader.getInstance();
+
     private final static Logger logger = Logger.getLogger(AccountRepositoryImpl.class.getName());
 
     public AccountRepositoryImpl() {

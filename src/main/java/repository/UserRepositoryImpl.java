@@ -9,6 +9,7 @@ import java.util.List;
 public class UserRepositoryImpl {
 
     private UserHolder holder = new UserHolder();
+
     private UserFileReader userFileReader = UserFileReader.getInstance();
 
     public UserRepositoryImpl() {

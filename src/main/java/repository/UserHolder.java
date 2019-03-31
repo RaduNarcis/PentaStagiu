@@ -14,15 +14,18 @@ public class UserHolder {
     public void setAllUsers(List<UserCredentials> users) {
         for (UserCredentials userCredentials : users) {
             this.users.put(userCredentials.getUserName(),userCredentials);
+
         }
     }
 
     public UserCredentials getUser(String name){
         return this.users.get(name);
+
     }
 
     public List<UserCredentials> getAllUsers(){
         return new ArrayList<UserCredentials>(this.users.values());
+
     }
 }
 

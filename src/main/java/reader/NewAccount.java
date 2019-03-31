@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class NewAccount {
 
     public Account createNewAccount() {
+
         Account account = new Account();
         Scanner scanner = new Scanner(System.in);
 

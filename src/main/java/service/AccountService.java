@@ -34,6 +34,7 @@ public class AccountService {
         accountRepository.save(account);
     }
 
+
     public List<Account> listAllAcounts(){
         return accountRepository.findAll();
     }

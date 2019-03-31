@@ -15,7 +15,6 @@ public class Account {
     private String accountType;
 
     public Account(){
-
     }
 
     public Account(Long id, String iban, String name, BigDecimal amount, Double balance, String accountType) {
