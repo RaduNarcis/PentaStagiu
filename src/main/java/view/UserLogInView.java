@@ -1,6 +1,6 @@
 package view;
 
-import constant.Constants;
+import constant.ViewUtil;
 
 import java.util.Scanner;
 
@@ -15,14 +15,12 @@ public class UserLogInView implements DisplayView {
         System.out.println();
         System.out.println("1. Account");
         System.out.println("2. Log out");
-        System.out.println("0. Exit");
         option = readOption();
 
-        while (option != Constants.EXIT_OPTION) {
+        while (option != ViewUtil.EXIT_OPTION) {
             processOption(option);
             displayOptions();
         }
-
     }
 
     @Override
@@ -42,11 +40,8 @@ public class UserLogInView implements DisplayView {
                 generalView.proceesLogOut();
                 System.exit(0);
                 break;
-            case 0:
-                System.exit(0);
-                break;
             default:
-                System.exit(0);
+                break;
         }
     }
 }

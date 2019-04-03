@@ -1,8 +1,8 @@
-package repository;
+package logic;
 
 import constant.Config;
 import model.Account;
-import reader.AccountFileReader;
+import reader.ReadFromFile;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,16 +11,16 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class AccountRepositoryImpl {
+public class AccountUtil {
 
     private AccountHolder holder = new AccountHolder();
 
-    private AccountFileReader accountFileReader = AccountFileReader.getInstance();
+    private ReadFromFile userFileReader = ReadFromFile.getInstance();
 
-    private final static Logger logger = Logger.getLogger(AccountRepositoryImpl.class.getName());
+    private final static Logger logger = Logger.getLogger(AccountUtil.class.getName());
 
-    public AccountRepositoryImpl() {
-        holder.setAllAcount(accountFileReader.readAccountsFromFile(Config.USER_ACCOUNT_FILE));
+    public AccountUtil() {
+        holder.setAllAcount(userFileReader.readAccountsFromFile(Config.USER_ACCOUNT_FILE));
     }
 
     public Account find(Long id) {

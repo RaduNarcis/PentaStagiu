@@ -1,4 +1,4 @@
-package repository;
+package logic;
 
 import model.UserCredentials;
 
@@ -24,7 +24,7 @@ public class UserHolder {
     }
 
     public List<UserCredentials> getAllUsers(){
-        return new ArrayList<UserCredentials>(this.users.values());
+        return new ArrayList<>(this.users.values());
 
     }
 }

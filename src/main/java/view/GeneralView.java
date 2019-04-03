@@ -1,7 +1,7 @@
 package view;
 
-import constant.Constants;
-import service.UserLoginService;
+import constant.ViewUtil;
+import service.UserLoginServiceImpl;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ public class GeneralView implements DisplayView {
         System.out.println("1. Log in");
         System.out.println("0. Exit");
         option = readOption();
-        while (option != Constants.EXIT_OPTION) {
+        while (option != ViewUtil.EXIT_OPTION) {
             processOption(option);
             displayOptions();
         }
@@ -40,7 +40,7 @@ public class GeneralView implements DisplayView {
                 System.exit(0);
                 break;
             default:
-                System.exit(0);
+                break;
         }
     }
 
@@ -58,7 +58,7 @@ public class GeneralView implements DisplayView {
         System.out.println("Enter password: ");
         String userPassword = scanner.nextLine();
 
-        return UserLoginService.userLogIn(userName, userPassword);
+        return UserLoginServiceImpl.userLogIn(userName, userPassword);
     }
 
     public void proceesLogOut(){

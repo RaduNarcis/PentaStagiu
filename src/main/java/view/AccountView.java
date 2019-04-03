@@ -1,9 +1,9 @@
 package view;
 
-import constant.Constants;
+import constant.ViewUtil;
 import model.Account;
 import reader.NewAccount;
-import service.AccountService;
+import service.AccountServiceImpl;
 import view.displayer.AccountDisplayer;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class AccountView implements DisplayView {
 
     int option = -1;
 
-    AccountService accountService = new AccountService();
+    AccountServiceImpl accountService = new AccountServiceImpl();
 
     NewAccount newAccount = new NewAccount();
 
@@ -27,7 +27,7 @@ public class AccountView implements DisplayView {
         System.out.println("0. Back");
 
         option = readOption();
-        while (option != Constants.EXIT_OPTION){
+        while (option != ViewUtil.EXIT_OPTION){
             processOption(option);
             displayOptions();
         }
@@ -54,7 +54,7 @@ public class AccountView implements DisplayView {
                 System.exit(0);
                 break;
             default:
-                System.exit(0);
+                break;
         }
     }
 }

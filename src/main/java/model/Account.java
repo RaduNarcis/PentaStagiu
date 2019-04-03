@@ -8,21 +8,19 @@ import java.util.Objects;
 public class Account {
 
     private Long id;
-    private String iban;
+    private String accountNumber;
     private String name;
     private BigDecimal amount;
-    private Double balance;
     private String accountType;
 
-    public Account(){
+    public Account() {
     }
 
-    public Account(Long id, String iban, String name, BigDecimal amount, Double balance, String accountType) {
+    public Account(Long id, String iban, String name, BigDecimal amount, String accountType) {
         this.id = id;
-        this.iban = iban;
+        this.accountNumber = iban;
         this.name = name;
         this.amount = amount;
-        this.balance = balance;
         this.accountType = accountType;
     }
 
@@ -34,13 +32,13 @@ public class Account {
         this.id = id;
     }
 
-    public String getIban() {
-        return iban;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setIban(String iban) {
-        if (AccountNumberValidator.validateIBAN(iban)) {
-            this.iban = iban;
+    public void setAccountNumber(String accountNumber) {
+        if (AccountNumberValidator.validateIBAN(accountNumber)) {
+            this.accountNumber = accountNumber;
         } else {
             throw new IllegalArgumentException("IBAN format is invalid");
         }
@@ -62,14 +60,6 @@ public class Account {
         this.amount = amount;
     }
 
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
     public String getAccountType() {
         return accountType;
     }
@@ -84,26 +74,24 @@ public class Account {
         if (!(o instanceof Account)) return false;
         Account account = (Account) o;
         return Objects.equals(getId(), account.getId()) &&
-                Objects.equals(getIban(), account.getIban()) &&
+                Objects.equals(getAccountNumber(), account.getAccountNumber()) &&
                 Objects.equals(getName(), account.getName()) &&
                 Objects.equals(getAmount(), account.getAmount()) &&
-                Objects.equals(getBalance(), account.getBalance()) &&
                 Objects.equals(getAccountType(), account.getAccountType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getIban(), getName(), getAmount(), getBalance(), getAccountType());
+        return Objects.hash(getId(), getAccountNumber(), getName(), getAmount(), getAccountType());
     }
 
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", iban='" + iban + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
                 ", name='" + name + '\'' +
                 ", amount=" + amount +
-                ", balance=" + balance +
                 ", accountType='" + accountType + '\'' +
                 '}';
     }

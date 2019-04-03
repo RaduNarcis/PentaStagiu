@@ -1,18 +1,18 @@
-package repository;
+package logic;
 
 import constant.Config;
 import model.UserCredentials;
-import reader.UserFileReader;
+import reader.ReadFromFile;
 
 import java.util.List;
 
-public class UserRepositoryImpl {
+public class UserUtil {
 
     private UserHolder holder = new UserHolder();
 
-    private UserFileReader userFileReader = UserFileReader.getInstance();
+    private ReadFromFile userFileReader = ReadFromFile.getInstance();
 
-    public UserRepositoryImpl() {
+    public UserUtil() {
         holder.setAllUsers(userFileReader.readUsersFromFile(Config.USER_PASSWORDS_FILE));
     }
 

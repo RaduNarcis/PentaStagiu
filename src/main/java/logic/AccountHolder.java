@@ -1,4 +1,4 @@
-package repository;
+package logic;
 
 import model.Account;
 
@@ -27,7 +27,7 @@ public class AccountHolder {
 
     public List<Account> getAllAccounts() {
         return new ArrayList<Account> (this.accounts.values());
-        //List<Account> allAccounts = AccountFileReader.getInstance().readAccountsFromFile(Config.USER_ACCOUNT_FILE);
+        //List<Account> allAccounts = ReadFromFile.getInstance().readAccountsFromFile(Config.USER_ACCOUNT_FILE);
     }
 
     public Long getNextAccount() {

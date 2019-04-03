@@ -15,17 +15,13 @@ public class NewAccount {
         account.setId(scanner.nextLong());
 
         System.out.println("IBAN: ");
-        account.setIban(scanner.next());
+        account.setAccountNumber(scanner.next());
 
         System.out.println("User name: ");
         account.setName(scanner.next());
 
         System.out.println("Amount: ");
         account.setAmount(scanner.nextBigDecimal());
-
-
-        System.out.println("Balance: ");
-        account.setBalance(scanner.nextDouble());
 
         System.out.println("Account type: ");
         account.setAccountType(scanner.next());

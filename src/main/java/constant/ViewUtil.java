@@ -1,6 +1,6 @@
 package constant;
 
-public class Constants {
+public class ViewUtil {
 
     public static final int EXIT_OPTION = 0;
 }
