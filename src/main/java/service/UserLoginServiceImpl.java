@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserLoginServiceImpl {
 
-    public static Boolean userLogIn(String username, String password) {
+    public static UserCredentials userLogIn(String username, String password) {
 
         List<UserCredentials> allUsers = ReadFromFile.getInstance().readUsersFromFile(Config.USER_PASSWORDS_FILE);
         boolean userOk = false;
@@ -21,7 +21,6 @@ public class UserLoginServiceImpl {
                 userOk = true;
             }
         }
-        return userOk;
+        return userLogIn(username,password);
     }
 }
-

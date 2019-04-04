@@ -1,5 +1,6 @@
 package reader;
 
+import commons.AccountType;
 import constant.Config;
 import model.Account;
 import model.UserCredentials;
@@ -57,9 +58,9 @@ public class ReadFromFile {
             }
 
         } catch (FileNotFoundException e1) {
-            logger.info("Exception!");
+            logger.warning("This is an warning message!!");
         } catch (Exception e2) {
-            logger.warning("Exception!");
+            logger.warning("This is an warning message!!");
         }
         return allUserCredentials;
     }
@@ -81,14 +82,15 @@ public class ReadFromFile {
                     BigDecimal stringDecimal = new BigDecimal(split[3]);
                     Long stringLong = Long.valueOf(split[1]);
 
-                    Account acc = new Account(stringLong, split[1], split[2], stringDecimal, split[4]);
+                    AccountType accountType = AccountType.valueOf(split[4]);
+                    Account acc = new Account(stringLong, split[1], split[2], stringDecimal, accountType);
                     allAccounts.add(acc);
                 }
             }
         } catch (FileNotFoundException e1) {
-            logger.info("Exception warning!");
+            logger.warning("This is an warning message!!");
         } catch (Exception e2) {
-            logger.warning("Exception warning");
+            logger.warning("This is an warning message!");
         }
         return allAccounts;
     }

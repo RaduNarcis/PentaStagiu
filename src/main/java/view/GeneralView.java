@@ -1,8 +1,13 @@
 package view;
 
+import application.ApplicationContext;
 import constant.ViewUtil;
+import model.Account;
+import model.UserCredentials;
+import service.AccountServiceImpl;
 import service.UserLoginServiceImpl;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class GeneralView implements DisplayView {
@@ -45,8 +50,8 @@ public class GeneralView implements DisplayView {
     }
 
     /**
-     *
      * try to log in
+     *
      * @return
      */
     public boolean processLogin() {
@@ -58,10 +63,20 @@ public class GeneralView implements DisplayView {
         System.out.println("Enter password: ");
         String userPassword = scanner.nextLine();
 
-        return UserLoginServiceImpl.userLogIn(userName, userPassword);
+        UserCredentials userCredentials = UserLoginServiceImpl.userLogIn(userName, userPassword);
+
+        Boolean userFound = userCredentials != null;
+        if (userFound) {
+            ApplicationContext.loggedInUser = userCredentials;
+            List<Account> accounts = AccountServiceImpl.listUserAccounts(userCredentials.getUserName());
+            ApplicationContext.loggedInUserAccounts = accounts;
+        }
+        return userFound;
+
+        //return UserLoginServiceImpl.userLogIn(userName, userPassword);
     }
 
-    public void proceesLogOut(){
+    public void proceesLogOut() {
         System.out.println("Succesfully logged out!");
         displayOptions();
     }

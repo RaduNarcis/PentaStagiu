@@ -1,4 +1,4 @@
-package view.displayer;
+package view;
 
 import model.Account;
 

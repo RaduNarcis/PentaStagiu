@@ -20,12 +20,10 @@ public class UserHolder {
 
     public UserCredentials getUser(String name){
         return this.users.get(name);
-
     }
 
     public List<UserCredentials> getAllUsers(){
         return new ArrayList<>(this.users.values());
-
     }
 }
 

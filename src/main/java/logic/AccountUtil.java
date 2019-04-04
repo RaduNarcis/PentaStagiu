@@ -34,23 +34,34 @@ public class AccountUtil {
     public void save(Account account) {
         account.setId(holder.getNextAccount());
         holder.addAccount(account);
-        wrtieToFile(holder.getAllAccounts());
+        writeToFile(holder.getAllAccounts());
     }
 
-    public void saveAll(List<Account> accounts) {
-        for (Account account : accounts) {
-            account.setId(holder.getNextAccount());
-            holder.addAccount(account);
-        }
-        wrtieToFile(holder.getAllAccounts());
+    public void saveAll() {
+        writeToFile(holder.getAllAccounts());
     }
 
-    private void wrtieToFile(List<Account> accounts) {
+    private void writeToFile(List<Account> accounts) {
         File file = new File(Config.USER_ACCOUNT_FILE);
 
         try (FileWriter fileWriter = new FileWriter(file);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write(String.valueOf(accounts));
+
+            for(Account account : accounts){
+
+                StringBuffer accountAsString = new StringBuffer();
+                accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
+                accountAsString.append(account.getId());
+                accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
+                accountAsString.append(account.getAccountNumber());
+                accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
+                accountAsString.append(account.getAmount());
+                accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
+                accountAsString.append(account.getAccountType().value);
+                accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
+
+                bufferedWriter.write(String.valueOf(accountAsString));
+            }
 
         } catch (FileNotFoundException e1) {
             logger.info("Exception!");

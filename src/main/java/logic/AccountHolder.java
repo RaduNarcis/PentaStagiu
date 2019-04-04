@@ -2,10 +2,7 @@ package logic;
 
 import model.Account;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AccountHolder {
 
@@ -37,7 +34,6 @@ public class AccountHolder {
                 max = account.getId();
             }
         }
-
         return max + 1;
     }
 }

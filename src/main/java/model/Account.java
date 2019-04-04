@@ -1,6 +1,7 @@
 package model;
 
 import commons.AccountNumberValidator;
+import commons.AccountType;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -11,14 +12,14 @@ public class Account {
     private String accountNumber;
     private String name;
     private BigDecimal amount;
-    private String accountType;
+    private AccountType accountType;
 
     public Account() {
     }
 
-    public Account(Long id, String iban, String name, BigDecimal amount, String accountType) {
+    public Account(Long id, String accountNumber, String name, BigDecimal amount, AccountType accountType) {
         this.id = id;
-        this.accountNumber = iban;
+        this.accountNumber = accountNumber;
         this.name = name;
         this.amount = amount;
         this.accountType = accountType;
@@ -60,11 +61,11 @@ public class Account {
         this.amount = amount;
     }
 
-    public String getAccountType() {
+    public AccountType getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(String accountType) {
+    public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
 
@@ -77,7 +78,7 @@ public class Account {
                 Objects.equals(getAccountNumber(), account.getAccountNumber()) &&
                 Objects.equals(getName(), account.getName()) &&
                 Objects.equals(getAmount(), account.getAmount()) &&
-                Objects.equals(getAccountType(), account.getAccountType());
+                getAccountType() == account.getAccountType();
     }
 
     @Override
@@ -92,7 +93,7 @@ public class Account {
                 ", accountNumber='" + accountNumber + '\'' +
                 ", name='" + name + '\'' +
                 ", amount=" + amount +
-                ", accountType='" + accountType + '\'' +
+                ", accountType=" + accountType +
                 '}';
     }
 }

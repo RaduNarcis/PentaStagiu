@@ -13,7 +13,7 @@ public class UserLogInView implements DisplayView {
     @Override
     public void displayOptions() {
         System.out.println();
-        System.out.println("1. Account");
+        System.out.println("1. Accounts");
         System.out.println("2. Log out");
         option = readOption();
 

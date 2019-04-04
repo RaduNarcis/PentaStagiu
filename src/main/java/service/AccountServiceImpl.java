@@ -1,41 +1,57 @@
 package service;
 
 import constant.Config;
+import logic.AccountUtil;
 import model.Account;
 import reader.ReadFromFile;
-import logic.AccountUtil;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AccountServiceImpl {
 
-    AccountUtil accountRepository = new AccountUtil();
+    AccountUtil accountUtil = new AccountUtil();
 
-    public static Boolean userAccount(Long id, String iban, String name, BigDecimal amount, String accountType) {
+    public static List<Account> listUserAccounts(String name) {
 
         List<Account> allAcounts = ReadFromFile.getInstance().readAccountsFromFile(Config.USER_ACCOUNT_FILE);
-
-        boolean accountExist = false;
+        List<Account> userAccounts = new LinkedList<>();
 
         Iterator<Account> accountIterator = allAcounts.iterator();
 
-        while (!accountExist && accountIterator.hasNext()) {
+        while (accountIterator.hasNext()) {
             Account acc = accountIterator.next();
-            if (acc.getId().equals(id) && acc.getAccountNumber().equals(iban) && acc.getAmount().equals(amount) && acc.getName().equals(name) && acc.getAccountType().equals(accountType)) {
-                accountExist = true;
+            if (acc.getName().equals(name)) {
+                userAccounts.add(acc);
             }
         }
-        return accountExist;
+        return userAccounts;
     }
 
-
     public void addAccount(Account account) {
-        accountRepository.save(account);
+        accountUtil.save(account);
     }
 
     public List<Account> listAllAcounts() {
-        return accountRepository.findAll();
+        return accountUtil.findAll();
+    }
+
+
+    public boolean processTransfer() {
+        accountUtil.saveAll();
+        return true;
+    }
+
+    public List<Account> transferAmount(String accountNumber, List<Account> accounts, BigDecimal amountToTransfer) {
+
+        for (Account account : accounts) {
+            if (accountNumber.equals(account.getAccountNumber())) {
+                BigDecimal newBalance = amountToTransfer.add(account.getAmount());
+                account.setAmount(newBalance);
+            }
+        }
+        return accounts;
     }
 }
