@@ -44,7 +44,6 @@ public class AccountView implements DisplayView {
             case 1:
                 Account account = processCreateNewAccount();
                 accountService.addAccount(account);
-                //update current user accounts
                 ApplicationContext.loggedInUserAccounts = AccountServiceImpl.listUserAccounts(ApplicationContext.loggedInUser.getUserName());
                 return;
             case 2:
@@ -55,7 +54,6 @@ public class AccountView implements DisplayView {
                 accountDisplayer.listAccounts(ApplicationContext.loggedInUserAccounts);
                 return;
             case 3:
-                // iei datele de transfer
                 // accountService.processTransfer()
             case 0:
                 System.exit(0);
