@@ -1,16 +1,18 @@
 package view;
 
 import application.ApplicationContext;
-import constant.ViewUtil;
+import configuration.Config;
 import model.Account;
 import model.UserCredentials;
-import service.AccountServiceImpl;
-import service.UserLoginServiceImpl;
+import service.account.AccountServiceImpl;
+import service.user.UserLoginServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class GeneralView implements DisplayView {
+
+    AccountServiceImpl accountService = new AccountServiceImpl();
 
     int option = -1;
 
@@ -19,7 +21,7 @@ public class GeneralView implements DisplayView {
         System.out.println("1. Log in");
         System.out.println("0. Exit");
         option = readOption();
-        while (option != ViewUtil.EXIT_OPTION) {
+        while (option != Config.EXIT_OPTION) {
             processOption(option);
             displayOptions();
         }
@@ -49,11 +51,6 @@ public class GeneralView implements DisplayView {
         }
     }
 
-    /**
-     * try to log in
-     *
-     * @return
-     */
     public boolean processLogin() {
         Scanner scanner = new Scanner(System.in);
 
@@ -68,12 +65,11 @@ public class GeneralView implements DisplayView {
         Boolean userFound = userCredentials != null;
         if (userFound) {
             ApplicationContext.loggedInUser = userCredentials;
-            List<Account> accounts = AccountServiceImpl.listUserAccounts(userCredentials.getUserName());
+            List<Account> accounts = accountService.listUserAccounts(userCredentials.getUserName());
             ApplicationContext.loggedInUserAccounts = accounts;
+            System.out.println("Welcome " + userName + " !");
         }
         return userFound;
-
-        //return UserLoginServiceImpl.userLogIn(userName, userPassword);
     }
 
     public void proceesLogOut() {

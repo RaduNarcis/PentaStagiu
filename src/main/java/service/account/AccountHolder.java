@@ -1,14 +1,17 @@
-package logic;
+package service.account;
 
 import model.Account;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AccountHolder {
 
     private Map<Long, Account> accounts = new HashMap<Long, Account>();
 
-    public void setAllAcount(List<Account> accounts) {
+    public void setAllAcounts(List<Account> accounts) {
         for (Account account : accounts) {
             this.accounts.put(account.getId(), account);
         }
@@ -23,17 +26,17 @@ public class AccountHolder {
     }
 
     public List<Account> getAllAccounts() {
-        return new ArrayList<Account> (this.accounts.values());
-        //List<Account> allAccounts = ReadFromFile.getInstance().readAccountsFromFile(Config.USER_ACCOUNT_FILE);
+        return new ArrayList<Account>(this.accounts.values());
     }
 
-    public Long getNextAccount() {
-        Long max = 0L;
+    public Long getNextAccountId() {
+        Long nextAccountId = 0L;
         for (Account account : accounts.values()) {
-            if (max < account.getId()) {
-                max = account.getId();
+            if (nextAccountId < account.getId()) {
+                nextAccountId = account.getId();
             }
         }
-        return max + 1;
+        nextAccountId++;
+        return nextAccountId;
     }
 }

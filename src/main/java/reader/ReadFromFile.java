@@ -1,11 +1,9 @@
 package reader;
 
 import commons.AccountType;
-import constant.Config;
+import configuration.Config;
 import model.Account;
 import model.UserCredentials;
-import service.AccountServiceImpl;
-import service.UserLoginServiceImpl;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,10 +17,10 @@ import java.util.logging.Logger;
 public class ReadFromFile {
 
     private final static Logger logger = Logger.getLogger(ReadFromFile.class.getName());
+
     private static ReadFromFile instance = null;
 
     private ReadFromFile() {
-
     }
 
     public static ReadFromFile getInstance() {
@@ -32,15 +30,18 @@ public class ReadFromFile {
         return instance;
     }
 
+
     /**
-     * read users and passwords
+     * Read user and password  from file
      *
      * @param path
-     * @return
+     * @return User
      */
+
     public List<UserCredentials> readUsersFromFile(String path) {
         List<UserCredentials> allUserCredentials = new LinkedList<>();
-        File file = new File(UserLoginServiceImpl.class.getClassLoader().getResource(path).getFile());
+//        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        File file = new File(path);
 
         try (FileReader f = new FileReader(file);
              BufferedReader br = new BufferedReader(f)) {
@@ -58,20 +59,28 @@ public class ReadFromFile {
             }
 
         } catch (FileNotFoundException e1) {
-            logger.warning("This is an warning message!!");
+            logger.warning("This is an warning message!!" + e1.getMessage());
         } catch (Exception e2) {
-            logger.warning("This is an warning message!!");
+            logger.warning("This is an warning message!!" + e2.getMessage());
         }
         return allUserCredentials;
     }
 
+
+    /**
+     * Read the accounts list from file
+     *
+     * @param path
+     * @return Acounts
+     */
     public List<Account> readAccountsFromFile(String path) {
         List<Account> allAccounts = new LinkedList<>();
-        File file = new File(AccountServiceImpl.class.getClassLoader().getResource(path).getFile());
+//        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        File file = new File(path);
 
-        try (FileReader f = new FileReader(file);
-             BufferedReader br = new BufferedReader(f)) {
-
+        try {
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
             String line;
             String[] split;
 
@@ -79,18 +88,23 @@ public class ReadFromFile {
                 split = line.split(Config.USER_ACCOUNT_SEPARATOR);
 
                 if (split.length == 5) {
-                    BigDecimal stringDecimal = new BigDecimal(split[3]);
-                    Long stringLong = Long.valueOf(split[1]);
+                    Long stringLong = Long.valueOf(split[0]);
+
+                    String amountAsString = split[3];
+                    if (amountAsString.contains(",")) {
+                        amountAsString = amountAsString.replace(",", ".");
+                    }
+                    BigDecimal amount = new BigDecimal(amountAsString);
 
                     AccountType accountType = AccountType.valueOf(split[4]);
-                    Account acc = new Account(stringLong, split[1], split[2], stringDecimal, accountType);
+                    Account acc = new Account(stringLong, split[1], split[2], amount, accountType);
                     allAccounts.add(acc);
                 }
             }
         } catch (FileNotFoundException e1) {
-            logger.warning("This is an warning message!!");
+            logger.warning("This is an warning message!!" + e1.getMessage());
         } catch (Exception e2) {
-            logger.warning("This is an warning message!");
+            logger.warning("This is an warning message!" + e2.getMessage());
         }
         return allAccounts;
     }

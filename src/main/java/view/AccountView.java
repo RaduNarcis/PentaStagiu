@@ -2,17 +2,20 @@ package view;
 
 import application.ApplicationContext;
 import commons.AccountType;
-import constant.ViewUtil;
+import configuration.Config;
 import model.Account;
-import service.AccountServiceImpl;
+import service.account.AccountServiceImpl;
 
 import java.util.Scanner;
+
 
 public class AccountView implements DisplayView {
 
     int option = -1;
 
-    AccountServiceImpl accountService = new AccountServiceImpl();
+    Account account = new Account();
+
+    AccountServiceImpl accountServiceImpl = new AccountServiceImpl();
 
     AccountDisplayer accountDisplayer = new AccountDisplayer();
 
@@ -20,12 +23,12 @@ public class AccountView implements DisplayView {
     public void displayOptions() {
         System.out.println();
         System.out.println("1. Create Account");
-        System.out.println("2. Display Account");
+        System.out.println("2. Display Accounts");
         System.out.println("3. Transfer Amount");
         System.out.println("0. Back");
 
         option = readOption();
-        while (option != ViewUtil.EXIT_OPTION) {
+        while (option != Config.EXIT_OPTION) {
             processOption(option);
             displayOptions();
         }
@@ -43,18 +46,14 @@ public class AccountView implements DisplayView {
         switch (option) {
             case 1:
                 Account account = processCreateNewAccount();
-                accountService.addAccount(account);
-                ApplicationContext.loggedInUserAccounts = AccountServiceImpl.listUserAccounts(ApplicationContext.loggedInUser.getUserName());
+                accountServiceImpl.addAccount(account);
+                ApplicationContext.loggedInUserAccounts = accountServiceImpl.listUserAccounts(ApplicationContext.loggedInUser.getUserName());
                 return;
             case 2:
-                /*
-                List<Account> accounts = accountService.listAllAcounts();
-                accountDisplayer.listUserAccounts(accounts);
-                */
                 accountDisplayer.listAccounts(ApplicationContext.loggedInUserAccounts);
                 return;
             case 3:
-                // accountService.processTransfer()
+                // accountServiceImpl.processTransfer()
             case 0:
                 System.exit(0);
                 break;
@@ -63,30 +62,37 @@ public class AccountView implements DisplayView {
         }
     }
 
-    public void processTransfer(){
+    public void processTransfer() {
 
     }
 
     public Account processCreateNewAccount() {
 
-        Account account = new Account();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Id: ");
-        account.setId(scanner.nextLong());
+        account.setName(ApplicationContext.loggedInUser.getUserName());
 
         System.out.println("IBAN: ");
         account.setAccountNumber(scanner.next());
-
-        System.out.println("User name: ");
-        account.setName(scanner.next());
 
         System.out.println("Amount: ");
         account.setAmount(scanner.nextBigDecimal());
 
         System.out.println("Account type: ");
-        //account.setAccountType().value;
+        String accountTypeAsString = scanner.nextLine();
+        AccountType accountType = AccountType.valueOf(accountTypeAsString.trim());
+        account.setAccountType(accountType);
 
+        /*switch (AccountType.valueOf(accountTypeAsString.trim())){
+            case RON:
+                account.setAccountType(RON);
+                break;
+            case EUR:
+                account.setAccountType(EUR);
+                break;
+        }
+
+         */
         return account;
     }
 }

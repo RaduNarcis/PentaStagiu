@@ -1,4 +1,4 @@
-package logic;
+package service.user;
 
 import model.UserCredentials;
 
@@ -14,7 +14,6 @@ public class UserHolder {
     public void setAllUsers(List<UserCredentials> users) {
         for (UserCredentials userCredentials : users) {
             this.users.put(userCredentials.getUserName(),userCredentials);
-
         }
     }
 

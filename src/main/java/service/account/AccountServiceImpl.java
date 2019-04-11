@@ -1,7 +1,6 @@
-package service;
+package service.account;
 
-import constant.Config;
-import logic.AccountUtil;
+import configuration.Config;
 import model.Account;
 import reader.ReadFromFile;
 
@@ -12,9 +11,9 @@ import java.util.List;
 
 public class AccountServiceImpl {
 
-    AccountUtil accountUtil = new AccountUtil();
+    static AccountService accountService = new AccountService();
 
-    public static List<Account> listUserAccounts(String name) {
+    public List<Account> listUserAccounts(String name) {
 
         List<Account> allAcounts = ReadFromFile.getInstance().readAccountsFromFile(Config.USER_ACCOUNT_FILE);
         List<Account> userAccounts = new LinkedList<>();
@@ -31,16 +30,11 @@ public class AccountServiceImpl {
     }
 
     public void addAccount(Account account) {
-        accountUtil.save(account);
+        accountService.save(account);
     }
 
-    public List<Account> listAllAcounts() {
-        return accountUtil.findAll();
-    }
-
-
-    public boolean processTransfer() {
-        accountUtil.saveAll();
+    public boolean processTransfer(Account account) {
+        accountService.save(account);
         return true;
     }
 

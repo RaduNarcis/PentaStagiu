@@ -1,6 +1,6 @@
 package view;
 
-import constant.ViewUtil;
+import configuration.Config;
 
 import java.util.Scanner;
 
@@ -17,7 +17,7 @@ public class UserLogInView implements DisplayView {
         System.out.println("2. Log out");
         option = readOption();
 
-        while (option != ViewUtil.EXIT_OPTION) {
+        while (option != Config.EXIT_OPTION) {
             processOption(option);
             displayOptions();
         }

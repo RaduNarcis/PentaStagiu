@@ -1,6 +1,6 @@
-package logic;
+package service.account;
 
-import constant.Config;
+import configuration.Config;
 import model.Account;
 import reader.ReadFromFile;
 
@@ -11,33 +11,21 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class AccountUtil {
+public class AccountService {
 
     private AccountHolder holder = new AccountHolder();
 
     private ReadFromFile userFileReader = ReadFromFile.getInstance();
 
-    private final static Logger logger = Logger.getLogger(AccountUtil.class.getName());
+    private final static Logger logger = Logger.getLogger(AccountService.class.getName());
 
-    public AccountUtil() {
-        holder.setAllAcount(userFileReader.readAccountsFromFile(Config.USER_ACCOUNT_FILE));
-    }
-
-    public Account find(Long id) {
-        return holder.getAccount(id);
-    }
-
-    public List<Account> findAll() {
-        return holder.getAllAccounts();
+    public AccountService() {
+        holder.setAllAcounts(userFileReader.readAccountsFromFile(Config.USER_ACCOUNT_FILE));
     }
 
     public void save(Account account) {
-        account.setId(holder.getNextAccount());
+        account.setId(holder.getNextAccountId());
         holder.addAccount(account);
-        writeToFile(holder.getAllAccounts());
-    }
-
-    public void saveAll() {
         writeToFile(holder.getAllAccounts());
     }
 
@@ -47,26 +35,27 @@ public class AccountUtil {
         try (FileWriter fileWriter = new FileWriter(file);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-            for(Account account : accounts){
-
+            for (Account account : accounts) {
                 StringBuffer accountAsString = new StringBuffer();
-                accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
                 accountAsString.append(account.getId());
                 accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
                 accountAsString.append(account.getAccountNumber());
+                accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
+                accountAsString.append(account.getName());
                 accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
                 accountAsString.append(account.getAmount());
                 accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
                 accountAsString.append(account.getAccountType().value);
                 accountAsString.append(Config.USER_ACCOUNT_SEPARATOR);
 
-                bufferedWriter.write(String.valueOf(accountAsString));
+                bufferedWriter.write(accountAsString.toString());
+                bufferedWriter.write(System.lineSeparator());
             }
 
         } catch (FileNotFoundException e1) {
-            logger.info("Exception!");
+            logger.warning("Exception!" + e1.getMessage());
         } catch (Exception e2) {
-            logger.warning("Exception!");
+            logger.warning("Exception!" + e2.getMessage());
         }
     }
 }

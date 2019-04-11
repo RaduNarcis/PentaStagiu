@@ -1,6 +1,6 @@
-package service;
+package service.user;
 
-import constant.Config;
+import configuration.Config;
 import model.UserCredentials;
 import reader.ReadFromFile;
 
@@ -12,15 +12,15 @@ public class UserLoginServiceImpl {
     public static UserCredentials userLogIn(String username, String password) {
 
         List<UserCredentials> allUsers = ReadFromFile.getInstance().readUsersFromFile(Config.USER_PASSWORDS_FILE);
-        boolean userOk = false;
+        UserCredentials foundUser = null;
 
         Iterator<UserCredentials> usersIterator = allUsers.iterator();
-        while (!userOk && usersIterator.hasNext()) {
+        while (foundUser == null && usersIterator.hasNext()) {
             UserCredentials userCredentials = usersIterator.next();
             if (userCredentials.getUserName().equals(username) && userCredentials.getPassword().equals(password)) {
-                userOk = true;
+                foundUser = userCredentials;
             }
         }
-        return userLogIn(username,password);
+        return foundUser;
     }
 }
