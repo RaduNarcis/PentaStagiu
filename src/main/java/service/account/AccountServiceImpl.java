@@ -3,8 +3,8 @@ package service.account;
 import configuration.Config;
 import model.Account;
 import reader.ReadFromFile;
+import service.BankTransferService;
 
-import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,19 +33,7 @@ public class AccountServiceImpl {
         accountService.save(account);
     }
 
-    public boolean processTransfer(Account account) {
-        accountService.save(account);
-        return true;
-    }
-
-    public List<Account> transferAmount(String accountNumber, List<Account> accounts, BigDecimal amountToTransfer) {
-
-        for (Account account : accounts) {
-            if (accountNumber.equals(account.getAccountNumber())) {
-                BigDecimal newBalance = amountToTransfer.add(account.getAmount());
-                account.setAmount(newBalance);
-            }
-        }
-        return accounts;
+    public void transferAmount(BankTransferService bankTransfer){
+        accountService.transferAmount(bankTransfer);
     }
 }

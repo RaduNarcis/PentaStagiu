@@ -19,12 +19,14 @@ public class AccountView implements DisplayView {
 
     AccountDisplayer accountDisplayer = new AccountDisplayer();
 
+    PaymentView paymentView = new PaymentView();
+
     @Override
     public void displayOptions() {
         System.out.println();
         System.out.println("1. Create Account");
         System.out.println("2. Display Accounts");
-        System.out.println("3. Transfer Amount");
+        System.out.println("3. Account payments");
         System.out.println("0. Back");
 
         option = readOption();
@@ -53,17 +55,13 @@ public class AccountView implements DisplayView {
                 accountDisplayer.listAccounts(ApplicationContext.loggedInUserAccounts);
                 return;
             case 3:
-                // accountServiceImpl.processTransfer()
+                paymentView.displayOptions();
             case 0:
                 System.exit(0);
                 break;
             default:
                 break;
         }
-    }
-
-    public void processTransfer() {
-
     }
 
     public Account processCreateNewAccount() {
@@ -77,22 +75,14 @@ public class AccountView implements DisplayView {
 
         System.out.println("Amount: ");
         account.setAmount(scanner.nextBigDecimal());
+        scanner.nextLine();
 
         System.out.println("Account type: ");
         String accountTypeAsString = scanner.nextLine();
-        AccountType accountType = AccountType.valueOf(accountTypeAsString.trim());
+        AccountType accountType = AccountType.valueOf(accountTypeAsString);
         account.setAccountType(accountType);
+        System.out.println("Account type selected " + accountType.name() + " - " + accountType.value);
 
-        /*switch (AccountType.valueOf(accountTypeAsString.trim())){
-            case RON:
-                account.setAccountType(RON);
-                break;
-            case EUR:
-                account.setAccountType(EUR);
-                break;
-        }
-
-         */
         return account;
     }
 }

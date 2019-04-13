@@ -1,4 +1,4 @@
-package commons;
+package validator;
 
 public class AccountNumberValidator {
 

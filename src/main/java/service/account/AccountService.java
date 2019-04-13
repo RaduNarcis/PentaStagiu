@@ -2,13 +2,16 @@ package service.account;
 
 import configuration.Config;
 import model.Account;
+import service.BankTransferService;
 import reader.ReadFromFile;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class AccountService {
@@ -25,8 +28,15 @@ public class AccountService {
 
     public void save(Account account) {
         account.setId(holder.getNextAccountId());
-        holder.addAccount(account);
-        writeToFile(holder.getAllAccounts());
+        holder.setAccount(account);
+        writeToFile(holder.getAllAccountsList());
+    }
+
+    public void update(Account account, Boolean confirm){
+        holder.setAccount(account);
+        if(confirm){
+            writeToFile(holder.getAllAccountsList());
+        }
     }
 
     private void writeToFile(List<Account> accounts) {
@@ -57,5 +67,24 @@ public class AccountService {
         } catch (Exception e2) {
             logger.warning("Exception!" + e2.getMessage());
         }
+    }
+
+
+    public void transferAmount(BankTransferService bankTransfer){
+        Scanner scanner = new Scanner(System.in);
+        Account accFrom = holder.getAccount(bankTransfer.getIdAccountFrom());
+        Account accTo = holder.getAccount(bankTransfer.getIdAccountTo());
+
+        update(accFrom, false);
+        update(accTo, false);
+
+        /**
+         * I have to review this..
+         */
+        accFrom.withdraw(scanner.nextBigDecimal());
+        accTo.deposit(BigDecimal.valueOf(200));
+
+        writeToFile(holder.getAllAccountsList());
+
     }
 }

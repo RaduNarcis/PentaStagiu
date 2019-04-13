@@ -1,6 +1,6 @@
 package model;
 
-import commons.AccountNumberValidator;
+import validator.AccountNumberValidator;
 import commons.AccountType;
 
 import java.math.BigDecimal;
@@ -68,6 +68,15 @@ public class Account {
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
+
+    public void deposit(BigDecimal amount){
+        this.amount = this.amount.add(amount);
+    }
+
+    public void withdraw(BigDecimal amount){
+        this.amount = this.amount.min(amount);
+    }
+
 
     @Override
     public boolean equals(Object o) {

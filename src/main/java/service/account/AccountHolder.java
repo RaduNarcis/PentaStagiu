@@ -17,7 +17,7 @@ public class AccountHolder {
         }
     }
 
-    public void addAccount(Account account) {
+    public void setAccount(Account account) {
         this.accounts.put(account.getId(), account);
     }
 
@@ -25,7 +25,7 @@ public class AccountHolder {
         return this.accounts.get(id);
     }
 
-    public List<Account> getAllAccounts() {
+    public List<Account> getAllAccountsList() {
         return new ArrayList<Account>(this.accounts.values());
     }
 
